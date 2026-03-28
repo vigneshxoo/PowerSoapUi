@@ -68,7 +68,7 @@ export const Communication = () => {
                                 System Alerts
                             </div>
                             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
-                                Notifi<span className="text-primary">cations</span>
+                                Notifi<span className="text-[#D11C78]">cations</span>
                             </h1>
                             <p className="text-gray-500 text-sm md:text-base font-medium max-w-xl mt-2">
                                 Monitor real-time activities and system updates from your team.
@@ -77,7 +77,7 @@ export const Communication = () => {
 
                         {/* GLOBAL ACTIONS */}
                         <div className="flex flex-wrap gap-3 items-center" data-aos="fade-left" data-aos-delay="100">
-                            <button className="flex items-center gap-2 px-5 py-2.5 bg-gray-900 text-white rounded-xl font-bold text-sm shadow-lg shadow-gray-900/20 hover:bg-black transition-all active:scale-95">
+                            <button className="flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-xl font-bold text-sm shadow-lg shadow-gray-900/20 hover:bg-[#D11C78] transition-all active:scale-95">
                                 <CheckCircle className="h-4 w-4" />
                                 Mark All Read
                             </button>

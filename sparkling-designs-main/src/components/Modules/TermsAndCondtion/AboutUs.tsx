@@ -26,8 +26,8 @@ export const AboutUs = () => {
                             <History className="h-4 w-4" />
                             Our Legacy
                         </div>
-                        <h1 className="text-5xl sm:text-7xl font-black tracking-tight leading-tight">
-                            Powering Homes for <span className="text-primary text-stroke-sm">3 Decades</span>
+                        <h1 className="text-5xl sm:text-5xl font-black tracking-tight leading-tight text-[#D11C78]">
+                            Powering Homes for 3 Decades
                         </h1>
                         <p className="text-xl text-gray-500 font-medium leading-relaxed">
                             From a small manufacturing company to a <span className="text-slate-900 font-black">₹250 Crore FMCG giant</span>. 
@@ -47,7 +47,7 @@ export const AboutUs = () => {
                                 <div className={`h-14 w-14 rounded-2xl ${stat.color} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
                                     {React.cloneElement(stat.icon as React.ReactElement, { size: 28 })}
                                 </div>
-                                <p className="text-3xl font-black tracking-tighter">{stat.value}</p>
+                                <p className="text-2xl font-black tracking-tighter">{stat.value}</p>
                                 <p className="text-xs font-black uppercase text-gray-400 tracking-widest mt-1">{stat.label}</p>
                             </div>
                         ))}

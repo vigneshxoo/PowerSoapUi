@@ -27,8 +27,8 @@ export const TermsAndConditions = () => {
                             <Scale className="h-4 w-4" />
                             Legal Agreement
                         </div>
-                        <h1 className="text-4xl sm:text-6xl font-black tracking-tight leading-tight">
-                            Terms & <span className="text-primary">Conditions</span>
+                        <h1 className="text-4xl sm:text-5xl font-black tracking-tight leading-tight">
+                            Terms & <span className="text-[#D11C78]">Conditions</span>
                         </h1>
                         <p className="text-gray-500 text-lg font-medium max-w-2xl">
                             Welcome to Power Soaps. These rules outline the regulations for the use of our website and services.

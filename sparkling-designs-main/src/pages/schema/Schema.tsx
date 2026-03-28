@@ -46,7 +46,7 @@ export const Schemes = () => {
                             </div>
 
                             <h1 className="text-3xl lg:text-5xl font-black tracking-tight text-slate-900">
-                                Scheme <span className="text-primary text-blue-600">Management</span>
+                                Scheme <span className="text-[#D11C78] ">Management</span>
                             </h1>
                             <p className="text-slate-500 font-medium text-base">
                                 Total Schemes Active: <span className="text-slate-900 font-bold">1</span>

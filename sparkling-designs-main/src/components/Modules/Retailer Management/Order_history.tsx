@@ -54,7 +54,7 @@ export const Reatiler_Manage_OrderHistory = () => {
                             {/* Flex container holding Title AND the Total Count pill */}
                             <div className="flex flex-wrap items-center gap-4">
                                 <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight leading-tight">
-                                    Order <span className="text-primary">History</span>
+                                    Order <span className="text-[#D11C78]">History</span>
                                 </h1>
                                 <div className="inline-flex items-center justify-center px-4 py-2 bg-white border border-gray-200 shadow-sm rounded-xl">
                                     <span className="text-xs sm:text-sm font-black text-gray-600 uppercase tracking-wider">
@@ -115,7 +115,7 @@ export const Reatiler_Manage_OrderHistory = () => {
                                             'Salesman', 'Items', 'Paid Amount',
                                             'Outstanding Amount', 'Delivery', 'Delivered On'
                                         ].map((header) => (
-                                            <th key={header} className="px-5 py-4 text-[10px] font-black uppercase text-gray-400 tracking-wider group cursor-pointer hover:bg-gray-100 transition-colors whitespace-nowrap">
+                                            <th key={header} className="px-5 py-4 text-[11px] sm:text-[13px] font-black uppercase text-gray-500 tracking-wider group cursor-pointer hover:bg-gray-100 transition-colors whitespace-nowrap">
                                                 <div className="flex items-center gap-1.5">
                                                     {header}
                                                     <ArrowUpDown size={12} className="text-gray-300 group-hover:text-primary transition-colors" />
@@ -132,7 +132,7 @@ export const Reatiler_Manage_OrderHistory = () => {
                                         return (
                                             <tr key={order.id} className="hover:bg-blue-50/30 transition-colors group">
                                                 <td className="px-5 py-4">
-                                                    <span className="font-bold text-primary text-sm hover:underline cursor-pointer transition-colors whitespace-nowrap">
+                                                    <span className="font-bold text-blue-500 text-sm hover:underline cursor-pointer transition-colors whitespace-nowrap">
                                                         {order.id}
                                                     </span>
                                                 </td>
@@ -168,13 +168,13 @@ export const Reatiler_Manage_OrderHistory = () => {
                                                 </td>
 
                                                 <td className="px-5 py-4">
-                                                    <span className={`font-black text-sm whitespace-nowrap ${order.outstanding > 0 ? 'text-rose-500' : 'text-gray-900'}`}>
+                                                    <span className={`font-black sm:text-[19px] whitespace-nowrap ${order.outstanding > 0 ? 'text-rose-500' : 'text-gray-900'}`}>
                                                         {order.outstanding > 0 ? `₹${order.outstanding.toLocaleString('en-IN')}` : '0'}
                                                     </span>
                                                 </td>
 
                                                 <td className="px-5 py-4">
-                                                    <span className={`inline-flex px-3 py-1.5 rounded-lg text-[10px] font-black uppercase tracking-widest whitespace-nowrap ${
+                                                    <span className={`inline-flex px-3 py-1.5 rounded-lg text-[10px] sm:text-[12px] font-black uppercase tracking-widest whitespace-nowrap ${
                                                         order.status === 'Completed'
                                                             ? 'bg-emerald-50 text-emerald-600 border border-emerald-100'
                                                             : 'bg-rose-50 text-rose-600 border border-rose-100'

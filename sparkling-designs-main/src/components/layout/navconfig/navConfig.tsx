@@ -1,4 +1,31 @@
-import { ShoppingCart, History, Package, Tags } from "lucide-react";
+import { useNavigate } from 'react-router-dom';
+import { LuMessageCircleMore } from "react-icons/lu";
+
+import { 
+    ShoppingBag, 
+    History, 
+    Boxes, 
+    Tags, 
+    FileText, 
+    Truck, 
+    Store, 
+    Users, 
+    Building2, 
+    UserPlus, 
+    ListPlus, 
+    ScrollText, 
+    Wallet, 
+    CalendarClock, 
+    Layers, 
+    BarChart3, 
+    PieChart, 
+    Bell, 
+    ShieldCheck, 
+    FileSignature, 
+    Info 
+} from "lucide-react";
+
+
 
 interface NavItem {
     icon: React.ComponentType<{ className?: string }>;
@@ -6,54 +33,55 @@ interface NavItem {
     active?: boolean;
     badge?: number;
     link: any
+    module?:string
 }
-
 export const InventoryManagement_Nav: NavItem[] = [
-    { icon: ShoppingCart, label: "Order Product", link: "/products" },
+    { icon: ShoppingBag, label: "Order Product", link: "/products",module:"InventoryManagement" },
     { icon: History, label: "Order History", link: "/orders" },
-    { icon: Package, label: "Stock In Hand", link: "/stock" },
+    { icon: Boxes, label: "Stock In Hand", link: "/stock" },
     { icon: Tags, label: "Scheme", badge: 3, link: "/schema" },
 ];
 
 export const order_management_Nav = [
-    { icon: ShoppingCart, label: "Sales Order", link: "/salesOrder" },
-    { icon: History, label: "Van Order", link: "/vanOrder" },
-    { icon: Package, label: "Retailer Order", link: "/Retialer" },
-
+    { icon: FileText, label: "Sales Order", link: "/salesOrder",module:"Order management" },
+    { icon: Truck, label: "Van Order", link: "/vanOrder" },
+    { icon: Store, label: "Retailer Order", link: "/Retialer" },
 ];
 
 export const Employee_Management_Nav = [
-    { icon: Package, label: "Employees", link: "/emp" },
+    { icon: Users, label: "Employees", link: "/emp" ,module:"Employee Management"},
 ];
 
 export const ReatilerManageMent_Nav = [
+    { icon: Building2, label: "Onboarded Retailer", link: "/onboard_reaitler" ,module:"ReatilerManageMent"},
+    { icon: UserPlus, label: "Retailer Request", link: "/Reatiler_Request" },
+];
 
-    { icon: ShoppingCart, label: "Onboarded Retailer", link: "/onboard_reaitler" },
-    { icon: History, label: "Retailer Request", link: "/Reatiler_Request" },
-]
 export const ReatilerManagement_Inside_Nav = [
-    { icon: ShoppingCart, label: "Take Order", link: "/Reaitler_takeorder" },
-    { icon: History, label: "Order History", link: "/Reatiler_history" },
-    { icon: History, label: "Outstanding", link: "/Reatiler_outstanding" },
-]
+    { icon: ListPlus, label: "Take Order", link: "/Reaitler_takeorder" ,module:"ReatilerManageMent"},
+    { icon: ScrollText, label: "Order History", link: "/Reatiler_history" },
+    { icon: Wallet, label: "Outstanding", link: "/Reatiler_outstanding" },
+];
+
 export const SheduleManagement_Nav = [
-    { icon: ShoppingCart, label: "Daily Shedule", link: "/daily-shedule" },
-    { icon: History, label: "Unit Grouping", link: "/unit_group" },
-]
+    { icon: CalendarClock, label: "Daily Shedule", link: "/daily-shedule",module:"SheduleManagement" },
+    { icon: Layers, label: "Unit Grouping", link: "/unit_group" },
+];
 
 export const DailySummeryManagement_Nav = [
-    { icon: ShoppingCart, label: "Daily Summery", link: "/summery" },
-]
-export const ReportAnalytics_Nav = [
-    { icon: ShoppingCart, label: "Reports and Analytics", link: "/report" },
+    { icon: BarChart3, label: "Daily Summery", link: "/summery" ,module:"DailySummeryManagement"},
 ];
-export const Communication_Nav = [
-    { icon: ShoppingCart, label: "Notication List", link: "/message" },
-]
 
+export const ReportAnalytics_Nav = [
+    { icon: PieChart, label: "Reports and Analytics", link: "/report",module:"ReportAnalytics" },
+];
+
+export const Communication_Nav = [
+    { icon: Bell, label: "Notication List", link: "/message",module:"Communication" },
+];
 
 export const Policy_nav = [
-    { icon: ShoppingCart, label: "Privacy Policy ", link: "/privacy_policy" },
-    { icon: History, label: "Terms And Conditions", link: "/Condition" },
-    { icon: History, label: "About Us", link: "/about" },
-]
+    { icon: ShieldCheck, label: "Privacy Policy ", link: "/privacy_policy" ,module:"Policy"},
+    { icon: FileSignature, label: "Terms And Conditions", link: "/Condition" },
+    { icon: Info, label: "About Us", link: "/about" },
+];

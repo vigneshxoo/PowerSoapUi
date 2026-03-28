@@ -16,7 +16,7 @@ import { Link } from 'react-router-dom';
 // import AOS from 'aos';
 // import 'aos/dist/aos.css';
 
-const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday" ];
 
 export const CreateSchedule = () => {
 
@@ -36,14 +36,14 @@ export const CreateSchedule = () => {
                     <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                         
                         <div className="flex items-start sm:items-center gap-4 sm:gap-6" data-aos="fade-right">
-                            <Link to="/schedule"> {/* Adjust link to match your router */}
+                            <Link to="/daily-shedule"> {/* Adjust link to match your router */}
                                 <button className="p-2.5 sm:p-3 rounded-2xl bg-white border border-gray-200 hover:border-primary/50 hover:text-primary hover:shadow-md transition-all group mt-1 sm:mt-0">
                                     <ArrowLeft className="h-5 w-5 sm:h-6 sm:w-6 text-slate-700 group-hover:text-primary transition-colors" />
                                 </button>
                             </Link>
                             <div>
                                 <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-tight">
-                                    Assign <span className="text-primary">Employees</span>
+                                    Assign <span className="text-[#D11C78]">Employees</span>
                                 </h1>
                                 
                                 {/* Location Meta Data Pill */}

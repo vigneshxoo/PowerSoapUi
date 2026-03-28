@@ -32,14 +32,14 @@ export const SalesOrder = () => {
 
                     {/* HERO SECTION */}
                     <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-6">
-                        <div className="space-y-2">
+                        <div className="space-y-2" data-aos="fade-right">
                             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-primary text-xs font-bold uppercase mb-1">
                                 <ClipboardList className="h-3.5 w-3.5" />
                                 Sales Tracking
                             </div>
                             {/* Adjusted Font Sizes: Scales smoothly from 2xl to 5xl, removing the oversized 6xl */}
                             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-tight">
-                                Sales <span className="text-primary">Orders</span>
+                                Sales <span className="text-[#D11C78]">Orders</span>
                             </h1>
                             <p className="text-gray-500 text-sm md:text-base lg:text-lg font-medium max-w-xl">
                                 Detailed overview of all store transactions and delivery statuses.
@@ -47,7 +47,7 @@ export const SalesOrder = () => {
                         </div>
 
                         {/* DATE FILTER - Scaled down padding and font sizes for a sleeker look */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-gray-50 p-3 rounded-2xl border border-gray-100 w-full xl:w-auto">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-gray-50 p-3 rounded-2xl border border-gray-100 w-full xl:w-auto" data-aos="fade-left" data-aos-delay="100">
                             <div className="relative group">
                                 <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-primary group-focus-within:scale-110 transition-transform" />
                                 <input type="text" placeholder="From Date" className="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl text-sm font-bold outline-none focus:ring-2 focus:ring-primary/20 transition-all shadow-sm" />
@@ -60,7 +60,7 @@ export const SalesOrder = () => {
                     </div>
 
                     {/* SEARCH & ENTRIES BAR */}
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4" data-aos="fade-up" data-aos-delay="150">
                        
                         <p className="text-sm font-bold text-gray-400 order-1 md:order-2">
                             Total Orders: <span className="text-gray-900">48</span>
@@ -69,7 +69,7 @@ export const SalesOrder = () => {
 
                     {/* TABLE CONTAINER */}
                     {/* Changed rounded-[2.5rem] to rounded-2xl for a more standard dashboard feel */}
-                    <div className="bg-white rounded-2xl border border-gray-100 shadow-xl shadow-gray-200/40 overflow-hidden">
+                    <div className="bg-white rounded-2xl border border-gray-100 shadow-xl shadow-gray-200/40 overflow-hidden" data-aos="fade-up" data-aos-delay="200">
                         <div className="overflow-x-auto">
                             {/* Adjusted min-w to allow better fitting on laptops before scrolling */}
                             <table className="w-full text-left min-w-[900px]">
@@ -86,7 +86,7 @@ export const SalesOrder = () => {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-50">
-                                    {mokeOrders.map((o) => (
+                                    {mokeOrders.map((o, index) => (
                                         <tr key={o.id} className="cursor-pointer hover:bg-blue-50/40 transition-colors group">
                                             {/* Scaled down table cells padding and fonts */}
                                             <td className="px-5 py-5">
@@ -145,7 +145,7 @@ export const SalesOrder = () => {
                     </div>
 
                     {/* PAGINATION SECTION */}
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-6 py-6 border-t border-gray-100">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-6 py-6 border-t border-gray-100" data-aos="fade-up" data-aos-delay="300">
                         <p className="text-sm font-medium text-gray-400 order-2 lg:order-1">
                             Showing <span className="text-gray-900 font-bold">1-3</span> of <span className="text-gray-900 font-bold">48</span> transactions
                         </p>

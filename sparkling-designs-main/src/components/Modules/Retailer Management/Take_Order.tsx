@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Header } from '@/components/layout/Header';
 import { 
@@ -15,6 +15,8 @@ import {
     X
 } from "lucide-react";
 import { Link } from 'react-router-dom';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 const mokeProducts = [
     { id: 1, name: "Nature Power Beauty Soap [Papaya] 125 Gms * 60 PCS (G)", price: 50.00, defaultUnit: "Box" },
@@ -29,10 +31,17 @@ export const ReatilerManagementTakeOrderList = () => {
     // State to handle the Order Summary Modal visibility
     const [showSummaryModal, setShowSummaryModal] = useState(false);
 
+    useEffect(() => {
+        AOS.init({
+            duration: 800,
+            once: true,
+            easing: 'ease-out-cubic',
+        });
+    }, []);
+
     return (
         <div className="min-h-screen bg-[#f8fafc] text-slate-900 relative">
             
-
             <main className="lg:ml-64 min-h-screen flex flex-col">
                
                 
@@ -40,16 +49,16 @@ export const ReatilerManagementTakeOrderList = () => {
                 <div className="p-4 sm:p-6 lg:p-8 xl:p-10 max-w-[1800px] mx-auto w-full h-full flex flex-col">
                     
                     {/* HERO & NAVIGATION */}
-                    <div className="flex items-center justify-between mb-6 xl:mb-8">
+                    <div className="flex items-center justify-between mb-6 xl:mb-8" data-aos="fade-down">
                         <div className="flex items-start sm:items-center gap-4 sm:gap-6">
-                            <Link to="/retailers">
+                            <Link to="/onboard_reaitler">
                                 <button className="p-2.5 sm:p-3 rounded-2xl bg-white border border-gray-200 hover:border-primary/50 hover:text-primary hover:shadow-md transition-all group mt-1 sm:mt-0">
                                     <ArrowLeft className="h-5 w-5 sm:h-6 sm:w-6 text-slate-700 group-hover:text-primary transition-colors" />
                                 </button>
                             </Link>
                             <div>
                                 <h1 className="text-2xl sm:text-3xl md:text-4xl font-black tracking-tight text-slate-900 flex items-center gap-3">
-                                    Order <span className="text-primary">Intake</span>
+                                    Order <span className="text-[#D11C78]">Intake</span>
                                 </h1>
                                 <p className="text-gray-500 text-xs sm:text-sm md:text-base font-medium mt-1">
                                     Select products and quantities for this retailer.
@@ -65,7 +74,7 @@ export const ReatilerManagementTakeOrderList = () => {
                         <div className="flex-1 w-full space-y-6">
                             
                             {/* MODERN SEARCH & FILTER BAR */}
-                            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 bg-white p-2 sm:p-3 rounded-2xl sm:rounded-3xl border border-gray-100 shadow-sm">
+                            <div className="flex flex-col sm:flex-row gap-2 sm:gap-4 bg-white p-2 sm:p-3 rounded-2xl sm:rounded-3xl border border-gray-100 shadow-sm" data-aos="fade-up" data-aos-delay="100">
                                 <div className="relative w-full sm:w-64 border-b sm:border-b-0 sm:border-r border-gray-100">
                                     <Layers className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-primary" />
                                     <select className="w-full pl-12 pr-10 py-3 sm:py-3.5 bg-transparent text-sm font-bold text-slate-700 outline-none appearance-none cursor-pointer">
@@ -87,8 +96,13 @@ export const ReatilerManagementTakeOrderList = () => {
 
                             {/* PRODUCT CARDS */}
                             <div className="space-y-4">
-                                {mokeProducts.map((product) => (
-                                    <div key={product.id} className="bg-white p-4 sm:p-5 rounded-2xl sm:rounded-[1.5rem] border border-gray-100 shadow-sm hover:shadow-md hover:border-primary/20 transition-all flex flex-col lg:flex-row lg:items-center justify-between gap-5 group">
+                                {mokeProducts.map((product, index) => (
+                                    <div 
+                                        key={product.id} 
+                                        className="bg-white p-4 sm:p-5 rounded-2xl sm:rounded-[1.5rem] border border-gray-100 shadow-sm hover:shadow-md hover:border-primary/20 transition-all flex flex-col lg:flex-row lg:items-center justify-between gap-5 group"
+                                        data-aos="fade-up" 
+                                        data-aos-delay={150 + (index * 50)}
+                                    >
                                         
                                         {/* Product Info */}
                                         <div className="flex-1">
@@ -160,14 +174,14 @@ export const ReatilerManagementTakeOrderList = () => {
                         </div>
 
                         {/* RIGHT COLUMN: RESPONSIVE CART SUMMARY */}
-                        <div className="fixed bottom-0 left-0 w-full z-30 xl:static xl:w-[400px] xl:shrink-0 xl:sticky xl:top-24">
+                        <div className="fixed bottom-0 left-0 w-full z-30 xl:static xl:w-[400px] xl:shrink-0 xl:sticky xl:top-24" data-aos="fade-left" data-aos-delay="300">
                             <div className="bg-white xl:rounded-[2rem] shadow-[0_-10px_40px_rgba(0,0,0,0.08)] xl:shadow-xl xl:border border-gray-100 overflow-hidden flex flex-col rounded-t-[1.5rem] xl:rounded-t-[2rem]">
                                 
                                 {/* Cart Header (Hidden on Mobile) */}
                                 <div className="hidden xl:flex p-6 bg-primary text-white items-center justify-between">
                                     <div className="flex items-center gap-3">
                                         <ShoppingCart className="h-6 w-6" />
-                                        <h2 className="text-xl font-black tracking-tight">Current Order</h2>
+                                        <h2 className="text-xl text-black font-semibold tracking-wide">Current Order</h2>
                                     </div>
                                     <span className="bg-white/20 px-3 py-1 rounded-full text-xs font-bold backdrop-blur-sm">
                                         1 Item
@@ -196,7 +210,7 @@ export const ReatilerManagementTakeOrderList = () => {
 
                                         <button 
                                             onClick={() => setShowSummaryModal(true)}
-                                            className="flex-1 xl:w-full py-3.5 sm:py-4 bg-slate-900 hover:bg-primary text-white rounded-xl sm:rounded-2xl font-black text-sm sm:text-base shadow-lg hover:shadow-primary/30 transition-all flex items-center justify-center gap-2 group"
+                                            className="flex-1 xl:w-full py-3.5 sm:py-4 bg-[#D11C78] hover:bg-primary text-white rounded-xl sm:rounded-2xl font-black text-sm sm:text-base shadow-lg hover:shadow-primary/30 transition-all flex items-center justify-center gap-2 group"
                                         >
                                             <CheckCircle2 className="h-5 w-5 sm:h-6 sm:w-6 group-hover:scale-110 transition-transform" />
                                             Review Order
@@ -211,16 +225,18 @@ export const ReatilerManagementTakeOrderList = () => {
                 </div>
             </main>
 
-            {/* ========================================= */}
-            {/* MODAL: ORDER SUMMARY (Based on Screenshot) */}
-            {/* ========================================= */}
+          
             {showSummaryModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 overflow-y-auto">
-                    <div className="bg-white rounded-2xl w-full max-w-3xl shadow-2xl relative my-auto animate-in fade-in zoom-in-95 duration-200">
+                    <div 
+                        className="bg-white rounded-2xl w-full max-w-3xl shadow-2xl relative my-auto animate-in fade-in zoom-in-95 duration-200"
+                        data-aos="zoom-in"
+                        data-aos-duration="400"
+                    >
                         
                         {/* Modal Header */}
                         <div className="p-6 border-b border-gray-100 flex items-center justify-center relative">
-                            <h2 className="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Order Summary</h2>
+                            <h2 className="text-xl sm:text-2xl font-black text-[#D11C78] tracking-tight">Order Summary</h2>
                             <button 
                                 onClick={() => setShowSummaryModal(false)}
                                 className="absolute right-6 p-2 rounded-full hover:bg-gray-100 text-gray-400 hover:text-gray-700 transition-colors"

@@ -49,7 +49,7 @@ export const DailyScheduleManagement = () => {
                                 Operations Planning
                             </div>
                             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-tight">
-                                Daily <span className="text-primary">Schedule</span>
+                                Daily <span className="text-[#D11C78]">Schedule</span>
                             </h1>
                             <p className="text-gray-500 text-sm md:text-base font-medium max-w-xl mt-2">
                                 Plan your daily routes, assign beats, and track unit schedules efficiently.
@@ -108,7 +108,7 @@ export const DailyScheduleManagement = () => {
                                             
                                             {/* Sl No */}
                                             <td className="px-5 py-4">
-                                                <Link to={"/createshedule"} className="font-black text-gray-400 text-sm group-hover:text-primary transition-colors">
+                                                <Link to={"/createshedule"} className="font-black text-blue-500 text-sm group-hover:text-primary transition-colors">
                                                     {String(item.slNo).padStart(2, '0')}
                                                 </Link>
                                             </td>
@@ -127,7 +127,7 @@ export const DailyScheduleManagement = () => {
 
                                             {/* Shop Count */}
                                             <td className="px-5 py-4 text-center">
-                                                <span className="inline-flex px-3 py-1.5 rounded-lg bg-gray-50 border border-gray-100 text-gray-900 font-bold text-xs shadow-sm">
+                                                <span className="inline-flex px-4 py-1.5 rounded-lg bg-gray-50 border border-gray-100 text-gray-900 text-sm font-bold sm:text-[14px] shadow-sm">
                                                     {item.shopNumber} Shops
                                                 </span>
                                             </td>

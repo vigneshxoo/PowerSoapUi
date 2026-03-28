@@ -177,8 +177,8 @@ const OrderHistory = () => {
                 <Clock className="h-3 w-3" />
                 History & Tracking
               </div>
-              <h1 className="text-3xl sm:text-4xl font-bold">
-                Order <span className="text-primary">History</span>
+              <h1 className="text-3xl lg:text-5xl font-black tracking-tight text-slate-900">
+                Order <span className="text-[#D11C78]">History</span>
               </h1>
               <p className="text-gray-500 mt-2 text-sm">
                 Track all past orders with complete details.

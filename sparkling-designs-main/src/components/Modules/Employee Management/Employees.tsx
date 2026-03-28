@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Sidebar } from '@/components/layout/Sidebar';
 import { Header } from '@/components/layout/Header';
 import {
@@ -14,7 +14,7 @@ import {
     ChevronsRight,
     Briefcase
 } from "lucide-react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const mokeEmployees = [
     { code: "DEL33710523", name: "vignesh", department: "Delivery", mobile: "7866464698", email: "-", joiningDate: "02/05/2026", dob: "02/04/2026" },
@@ -24,6 +24,7 @@ const mokeEmployees = [
 ];
 
 export const EmployeeManagement = () => {
+    
     return (
         <div className="min-h-screen bg-white">
             {/* Added standard layout elements if needed based on your imports */}
@@ -37,14 +38,14 @@ export const EmployeeManagement = () => {
 
                     {/* HERO SECTION */}
                     <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-6">
-                        <div className="space-y-2">
+                        <div className="space-y-2" data-aos="fade-right">
                             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-primary text-xs font-bold uppercase mb-1">
                                 <Users className="h-3.5 w-3.5" />
                                 Workforce Management
                             </div>
                             {/* Adjusted Font Sizes: Scales smoothly */}
                             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-tight">
-                                Employees <span className="text-primary">List</span>
+                                Employees <span className="text-[#D11C78]">List</span>
                             </h1>
                             <p className="text-gray-500 text-sm md:text-base lg:text-lg font-medium max-w-xl">
                                 Monitor your team, track real-time locations, and manage employee records.
@@ -52,7 +53,7 @@ export const EmployeeManagement = () => {
                         </div>
 
                         {/* ACTION BUTTONS - Scaled down paddings and radii for a sleeker UI */}
-                        <div className="flex flex-wrap gap-3 items-center">
+                        <div className="flex flex-wrap gap-3 items-center" data-aos="fade-left" data-aos-delay="100">
                             <Link to={"/addemp"}>
                                 <button className="flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-xl font-bold text-sm shadow-lg shadow-primary/25 hover:bg-primary/90 transition-all active:scale-95">
                                     <UserPlus className="h-4 w-4" />
@@ -72,7 +73,7 @@ export const EmployeeManagement = () => {
                     </div>
 
                     {/* SEARCH & FILTERS - Added the Search input to match other pages */}
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4" data-aos="fade-up" data-aos-delay="150">
                         <div className="relative w-full md:w-[22rem] order-2 md:order-1">
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                             <input type="text" placeholder="Search employees, roles..." className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-100 bg-gray-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm" />
@@ -83,7 +84,7 @@ export const EmployeeManagement = () => {
                     </div>
 
                     {/* EMPLOYEES TABLE */}
-                    <div className="bg-white rounded-2xl border border-gray-100 shadow-xl shadow-gray-200/40 overflow-hidden">
+                    <div className="bg-white rounded-2xl border border-gray-100 shadow-xl shadow-gray-200/40 overflow-hidden" data-aos="fade-up" data-aos-delay="200">
                         <div className="overflow-x-auto">
                             {/* Adjusted min-w to fit well on standard monitors */}
                             <table className="w-full text-left min-w-[1000px]">
@@ -104,7 +105,7 @@ export const EmployeeManagement = () => {
                                         <tr key={emp.code} className="hover:bg-blue-50/40 transition-colors group">
                                             {/* Standardized inner cell padding */}
                                             <td className="px-5 py-5">
-                                                <p className="font-bold text-primary text-sm md:text-base group-hover:translate-x-1 transition-transform">#{emp.code}</p>
+                                                <p className="font-bold text-blue-500 text-sm md:text-base group-hover:translate-x-1 transition-transform">#{emp.code}</p>
                                                 <p className="text-[10px] text-gray-400 font-bold mt-1 uppercase tracking-wider">JOINED: {emp.joiningDate}</p>
                                             </td>
                                             <td className="px-5 py-5 font-bold text-gray-900 text-sm md:text-base">
@@ -150,7 +151,7 @@ export const EmployeeManagement = () => {
                     </div>
 
                     {/* PAGINATION */}
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-6 py-6 border-t border-gray-100">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-6 py-6 border-t border-gray-100" data-aos="fade-up" data-aos-delay="300">
                         <p className="text-sm font-medium text-gray-400 order-2 lg:order-1">
                             Showing <span className="text-gray-900 font-bold">1-4</span> of <span className="text-gray-900 font-bold">24</span> employees
                         </p>

@@ -118,7 +118,7 @@ export const AddToCart = () => {
 
     return (
         <div className="min-h-screen bg-dots-pattern">
-            <Header searchValue={searchQuery} onSearchChange={setSearchQuery} />
+           
 
             <div className="p-4 sm:p-6 lg:p-10 max-w-[1600px] mx-auto">
 

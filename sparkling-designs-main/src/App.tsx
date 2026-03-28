@@ -56,6 +56,8 @@ import { Privacy_policy_Layout } from "./components/layout/RootLayouts/PrivacyPo
 import { PrivacyPolicy } from "./components/Modules/TermsAndCondtion/PrivacyPolicy";
 import { TermsAndConditions } from "./components/Modules/TermsAndCondtion/Terms_and_Conditions";
 import { AboutUs } from "./components/Modules/TermsAndCondtion/AboutUs";
+import 'animate.css';
+
 const App = () => (
 
   useEffect(() => {

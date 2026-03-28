@@ -30,8 +30,8 @@ export const PrivacyPolicy = () => {
                             <ShieldCheck className="h-4 w-4" />
                             Data Protection
                         </div>
-                        <h1 className="text-4xl sm:text-6xl font-black tracking-tight leading-tight">
-                            Privacy <span className="text-primary">Policy</span>
+                        <h1 className="text-4xl sm:text-5xl font-black tracking-tight leading-tight">
+                            Privacy <span className="text-[#D11C78]">Policy</span>
                         </h1>
                         <p className="text-gray-500 text-lg font-medium max-w-2xl">
                             At Power Soaps, we are committed to protecting your personal information and your right to privacy.

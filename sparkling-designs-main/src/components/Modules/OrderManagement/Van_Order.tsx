@@ -23,7 +23,6 @@ const mokeVanOrders = [{
     paidAmonut: 23,
     outstandingAmonut: 2456,
 
-
 },
 {
     ordernumber: "ORD-R44946151",
@@ -34,7 +33,6 @@ const mokeVanOrders = [{
     items: 84,
     paidAmonut: 23,
     outstandingAmonut: 2456,
-
 
 },
 {
@@ -47,13 +45,11 @@ const mokeVanOrders = [{
     paidAmonut: 23,
     outstandingAmonut: 2459,
 
-
 }];
 
 export const VanOrder = () => {
     return (
         <div className="min-h-screen bg-white">
-
 
             <main className="lg:ml-64 min-h-screen flex flex-col">
 
@@ -62,14 +58,14 @@ export const VanOrder = () => {
 
                     {/* HERO SECTION */}
                     <div className="flex flex-col xl:flex-row xl:items-end justify-between gap-6">
-                        <div className="space-y-2">
+                        <div className="space-y-2" data-aos="fade-right">
                             <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full  borderbg-primary/10 border border-primary/20 text-primary text-xs font-bold uppercase mb-1">
                                 <Truck className="h-3.5 w-3.5" />
                                 Logistics Tracking
                             </div>
                             {/* Adjusted Font Sizes: Scales smoothly from mobile to 2xl */}
                             <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight text-slate-900 leading-tight">
-                                Van <span className="text-primary">Orders</span>
+                                Van <span className="text-[#D11C78]">Orders</span>
                             </h1>
                             <p className="text-gray-500 text-sm md:text-base lg:text-lg font-medium max-w-xl">
                                 Real-time tracking of orders assigned to delivery vans.
@@ -77,7 +73,7 @@ export const VanOrder = () => {
                         </div>
 
                         {/* DATE FILTERS - Scaled down for a sleeker look */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-gray-50 p-3 rounded-2xl border border-gray-100 w-full xl:w-auto">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 bg-gray-50 p-3 rounded-2xl border border-gray-100 w-full xl:w-auto" data-aos="fade-left" data-aos-delay="100">
                             <div className="relative group">
                                 <Calendar className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-primary" />
                                 <input type="text" placeholder="From Date" className="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl text-sm font-bold outline-none focus:ring-2 focus:ring-primary/20 transition-all shadow-sm" />
@@ -90,7 +86,7 @@ export const VanOrder = () => {
                     </div>
 
                     {/* SEARCH BAR */}
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4" data-aos="fade-up" data-aos-delay="150">
                         {/* <div className="relative w-full md:w-[22rem] order-2 md:order-1">
                             <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
                             <input type="text" placeholder="Search orders or salesman..." className="w-full pl-11 pr-4 py-3 rounded-xl border border-gray-100 bg-gray-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm" />
@@ -101,7 +97,7 @@ export const VanOrder = () => {
                     </div>
 
                     {/* TABLE AREA */}
-                    <div className="bg-white rounded-2xl border border-gray-100 shadow-xl shadow-gray-200/40 overflow-hidden">
+                    <div className="bg-white rounded-2xl border border-gray-100 shadow-xl shadow-gray-200/40 overflow-hidden" data-aos="fade-up" data-aos-delay="200">
                         <div className="overflow-x-auto">
                             {/* Adjusted min-w to prevent unnecessary scrolling on standard laptops */}
                             <table className="w-full text-left min-w-[900px]">
@@ -121,7 +117,7 @@ export const VanOrder = () => {
                                     {mokeVanOrders.length > 0 ? (
                                         mokeVanOrders.map((o) => (
                                             <tr key={o.ordernumber} className="cursor-pointer hover:bg-blue-50/40 transition-colors group">
-                                                <td className="px-5 py-5 font-bold text-primary text-sm md:text-base">#{o.ordernumber}</td>
+                                                <td className="px-5 py-5 font-bold text-blue-500 text-sm md:text-base">#{o.ordernumber}</td>
                                                 <td className="px-5 py-5 text-gray-500 text-sm font-medium">{o.dateTime}</td>
                                                 <td className="px-5 py-5">
                                                     <div className="flex items-center gap-3">
@@ -163,7 +159,7 @@ export const VanOrder = () => {
                     </div>
 
                     {/* PAGINATION */}
-                    <div className="flex flex-col lg:flex-row items-center justify-between gap-6 py-6 border-t border-gray-100">
+                    <div className="flex flex-col lg:flex-row items-center justify-between gap-6 py-6 border-t border-gray-100" data-aos="fade-up" data-aos-delay="300">
                         <p className="text-sm font-medium text-gray-400 order-2 lg:order-1">
                             Showing <span className="text-gray-900 font-bold">0</span> to <span className="text-gray-900 font-bold">0</span> of <span className="text-gray-900 font-bold">0</span> entries
                         </p>

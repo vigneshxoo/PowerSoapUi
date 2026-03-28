@@ -32,7 +32,7 @@ export const Stocks = () => {
                                 Stock & Tracking
                             </div>
                             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-slate-900">
-                                Stock In <span className="text-primary">Hand</span>
+                                Stock In <span className="text-[#D11C78]">Hand</span>
                             </h1>
                             <p className="text-slate-500 mt-3 text-base lg:text-lg font-medium">
                                 Track all past stocks with complete details, pricing, and quantities.
