@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Product } from "@/data/products";
 import { getProducts } from "@/APi/ProductAPi";
 import { useCart } from "@/context/CartContext";
-
+import Counter from "@/data/animatercounter";
 
 const Index = () => {
   const { data: products = [] } = useQuery<Product[]>({
@@ -56,7 +56,7 @@ const Index = () => {
                   </div>
                   <div>
                     <p className="text-[10px] sm:text-sm text-muted-foreground">{stat.label}</p>
-                    <p className="text-xl sm:text-2xl font-bold text-foreground">{stat.value}</p>
+                    <p className="text-xl sm:text-2xl font-bold text-foreground">{<Counter start={0} end={parseInt(stat.value)} />}</p>
                   </div>
                 </div>
               </div>

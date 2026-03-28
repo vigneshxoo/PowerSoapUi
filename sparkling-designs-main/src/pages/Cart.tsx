@@ -117,7 +117,7 @@ export const AddToCart = () => {
 
 
     return (
-        <div className="min-h-screen bg-dots-pattern">
+        <div className="min-h-screen lg:ml-64 bg-dots-pattern">
            
 
             <div className="p-4 sm:p-6 lg:p-10 max-w-[1600px] mx-auto">

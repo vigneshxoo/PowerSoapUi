@@ -11,6 +11,7 @@ import {
     ChevronsLeft,
     ChevronsRight,
 } from "lucide-react";
+import Counter from '@/data/animatercounter';
 import { mokeproducts } from '@/data/products';
 
 export const Stocks = () => {
@@ -42,9 +43,9 @@ export const Stocks = () => {
                         {/* STATS - Responsive Grid */}
                         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6 w-full xl:w-auto xl:gap-16 2xl:gap-7">
                             {[
-                                { label: "Total Stocks", value: 12, icon: ShoppingBag },
-                                { label: "Total Boxes", value: 11, icon: Package },
-                                { label: "Total Pieces", value: 12, icon: IndianRupee },
+                                { label: "Total Stocks", value: 1278, icon: ShoppingBag },
+                                { label: "Total Boxes", value: 1158, icon: Package },
+                                { label: "Total Pieces", value: 1552, icon: IndianRupee },
                             ].map((s, i) => (
                                 <div
                                     key={i}
@@ -57,7 +58,7 @@ export const Stocks = () => {
                                         <p className="text-[10px] lg:text-xs text-slate-400 uppercase font-bold tracking-widest">
                                             {s.label}
                                         </p>
-                                        <p className="text-2xl lg:text-3xl font-black text-slate-900">{s.value}</p>
+                                        <p className="text-2xl lg:text-2xl font-black text-slate-900">{<Counter start={0} end={s.value}/>}</p>
                                     </div>
                                 </div>
                             ))}

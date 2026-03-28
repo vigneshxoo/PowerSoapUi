@@ -22,6 +22,7 @@ import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import gsap from "gsap";
 import Skeleton from "react-loading-skeleton";
 import { InventoryManagement_Nav } from "@/components/layout/navconfig/navConfig";
+import Counter from "@/data/animatercounter";
 /* ---------------- helpers ---------------- */
 
 const normalizeStatus = (status?: string) =>
@@ -192,7 +193,7 @@ const OrderHistory = () => {
                 { label: "Total Boxes", value: totalBoxes, icon: Package },
                 {
                   label: "Total Spent",
-                  value: totalSpent.toLocaleString(),
+                  value: totalSpent,
                   icon: IndianRupee,
                 },
               ].map((s, i) => (
@@ -207,7 +208,8 @@ const OrderHistory = () => {
                     <p className="text-xs text-gray-500 uppercase">
                       {s.label}
                     </p>
-                    <p className="text-xl font-semibold">{s.value}</p>
+                    <p className="text-xl font-semibold">{ <Counter start={0} end={s.value}/>}</p>
+                   
                   </div>
                 </div>
               ))}

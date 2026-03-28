@@ -13,6 +13,7 @@ import {
     Users,
     ShoppingBag
 } from "lucide-react";
+import Counter from '@/data/animatercounter';
 
 const mockSummary = [
     { date: "26/03/2026", distributor: "SREE ANNAMALAIYAR TRADERS - TRICHY", employee: "SALESMAN", dept: "Sales", outlets: "4/80", area: "DAILY BEAT", productivity: "20/5", amount: "2,703" },
@@ -28,7 +29,7 @@ const StatCard = ({ icon: Icon, label, value, colorClass }: any) => (
         </div>
         <div>
             <p className="text-[11px] font-bold text-gray-400 uppercase tracking-widest">{label}</p>
-            <p className="text-2xl font-bold text-gray-900 tracking-tight leading-none mt-1">{value}</p>
+            <p className="text-2xl font-bold text-gray-900 tracking-tight leading-none mt-1">{<Counter start={0} end={parseInt(value)}/>}</p>
         </div>
     </div>
 );
@@ -83,7 +84,7 @@ export const DailySummary = () => {
 
                     {/* TOP STATS - Responsive Grid */}
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                        <StatCard icon={TrendingUp} label="Total Sales" value="₹ 6,541" colorClass="bg-emerald-50 text-emerald-600 border border-emerald-100" />
+                        <StatCard icon={TrendingUp} label="Total Sales" value="6,541" colorClass="bg-emerald-50 text-emerald-600 border border-emerald-100" />
                         <StatCard icon={ShoppingBag} label="Outlets" value="17/294" colorClass="bg-blue-50 text-blue-600 border border-blue-100" />
                         <StatCard icon={Target} label="Productivity" value="85/20" colorClass="bg-purple-50 text-purple-600 border border-purple-100" />
                         <StatCard icon={Users} label="Active Staff" value="04" colorClass="bg-orange-50 text-orange-600 border border-orange-100" />

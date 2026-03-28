@@ -268,7 +268,7 @@ export const DashBoard = () => {
 
     {/* PREMIUM HEADING */}
     <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-[4rem] font-black tracking-tighter text-slate-900 leading-[1.05]">
-        <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#D11C78] to-[#E82B8C] drop-shadow-sm">
+        <span className="bg-clip-text text-transparent uppercase tracking-wider bg-gradient-to-r from-[#D11C78] to-[#E82B8C] drop-shadow-sm">
             Power Soaps
         </span>
         {/* Optional context word, scales beautifully on desktop */}

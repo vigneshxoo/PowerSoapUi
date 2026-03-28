@@ -32,7 +32,7 @@ export function DashBoardHeader({ navItems }: HeaderProps) {
             </div>
 
             <div className="flex flex-col ml-2 sm:ml-4">
-              <span className="text-lg sm:text-xl font-black tracking-tighter text-[#D11C78] leading-none uppercase transition-colors duration-300">
+              <span className="text-lg sm:text-xl font-black tracking-tighter text-[#D11C78]  leading-none uppercase transition-colors duration-300">
                 Power Soaps
               </span>
               <div className="flex items-center gap-1 sm:gap-2 mt-1">
@@ -87,12 +87,12 @@ export function DashBoardHeader({ navItems }: HeaderProps) {
 
           {/* User Command Center */}
           <div className="flex items-center gap-2 sm:gap-3 cursor-pointer group p-1 pr-2 sm:pr-3 rounded-[1.2rem] hover:bg-white border border-transparent hover:border-slate-100 hover:shadow-sm transition-all duration-300">
-            <div className="h-9 w-9 sm:h-11 sm:w-11 rounded-xl sm:rounded-2xl bg-gradient-to-br from-[#D11C78] to-purple-700 flex items-center justify-center text-white text-xs font-black shadow-lg shadow-[#D11C78]/20 group-hover:scale-105 transition-transform duration-500">
+            <div className="h-9 w-9 sm:h-11 sm:w-11 rounded-xl sm:rounded-2xl bg-gradient-to-br bg-[#D11C78] flex items-center justify-center text-white text-xs font-black shadow-lg shadow-[#D11C78]/20 group-hover:scale-105 transition-transform duration-500">
               TD
             </div>
 
             <div className="hidden sm:flex flex-col">
-              <span className="text-[12px] lg:text-[13px] font-black text-slate-800 tracking-tight leading-tight whitespace-nowrap">T. Dhanush</span>
+              <span className="text-[12px] lg:text-[13px] font-black text-slate-800 tracking-tight leading-tight whitespace-nowrap">Vignesh</span>
               <span className="text-[9px] font-black text-emerald-500 uppercase tracking-[0.1em] mt-0.5">Admin</span>
             </div>
 
