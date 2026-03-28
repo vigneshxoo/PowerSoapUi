@@ -3,19 +3,16 @@ import { useParams, useNavigate } from "react-router-dom";
 import html2pdf from "html2pdf.js";
 import gsap from "gsap";
 
-import { Header } from "@/components/layout/Header";
-import { Sidebar } from "@/components/layout/Sidebar";
-import { MobileSidebar } from "@/components/layout/MobileSidebar";
-
 import {
   ArrowLeft,
   Package,
   Clock,
   Truck,
-  ShieldCheck,
-  TrendingUp,
-  FileText,
+  Download,
+  Receipt,
+  CheckCircle2,
   AlertCircle,
+  Hash
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -23,288 +20,230 @@ import { useQuery } from "@tanstack/react-query";
 import { getOrderSingleDetails } from "@/APi/ProductAPi";
 import InvoicePDF from "@/data/Invoice";
 
-/* ---------------- helpers ---------------- */
-
-const normalizeStatus = (status?: string) =>
-  status ? status.toUpperCase() : "PENDING";
-
+const normalizeStatus = (status) => status ? status.toUpperCase() : "PENDING";
 const statusPhases = ["PENDING", "SHIPPED", "DELIVERED"];
 
 const OrderDetails = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id } = useParams();
   const navigate = useNavigate();
-
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
   const [generating, setGenerating] = useState(false);
+  const invoiceRef = useRef(null);
 
-  const invoiceRef = useRef<HTMLDivElement>(null);
-
-  /* ---------------- API (SINGLE ORDER) ---------------- */
-  const {
-    data: order,
-    isLoading,
-    isError,
-  } = useQuery({
+  const { data: order, isLoading, isError } = useQuery({
     queryKey: ["OrderSingleDetails", id],
-    queryFn: () => getOrderSingleDetails({id}),
+    queryFn: () => getOrderSingleDetails({ id }),
     enabled: !!id,
     refetchOnWindowFocus: false,
   });
 
-  const currentPhaseIndex = statusPhases.indexOf(
-    normalizeStatus(order?.status)
-  );
+  const currentPhaseIndex = statusPhases.indexOf(normalizeStatus(order?.status));
 
-  /* ---------------- GSAP ANIMATION (SINGLE useEffect) ---------------- */
   useEffect(() => {
     if (!order) return;
-
     const ctx = gsap.context(() => {
-      // HEADER
-      gsap.fromTo(
-        ".od-header > *",
-        { opacity: 0, y: 16 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          stagger: 0.08,
-          ease: "power3.out",
-        }
-      );
-
-      // PIPELINE PROGRESS
-      gsap.fromTo(
-        ".pipeline-progress",
-        { width: "0%" },
-        {
-          width:
-            currentPhaseIndex <= 0
-              ? "15%"
-              : currentPhaseIndex === statusPhases.length - 1
-              ? "100%"
-              : `${(currentPhaseIndex / (statusPhases.length - 1)) * 100}%`,
-          duration: 0.8,
-          ease: "power2.out",
-        }
-      );
-
-      // ITEMS LIST
-      gsap.fromTo(
-        ".order-item",
-        { opacity: 0 },
-        {
-          opacity: 1,
-          duration: 0.4,
-          stagger: 0.06,
-          ease: "power1.out",
-        }
-      );
-
-      // MOBILE PAGE REVEAL
-      if (window.innerWidth < 768) {
-        gsap.fromTo(
-          "main",
-          { opacity: 0, y: 24 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.45,
-            ease: "power2.out",
-          }
-        );
-      }
+      gsap.from(".animate-up", { opacity: 0, y: 30, duration: 0.8, stagger: 0.1, ease: "power4.out" });
+      gsap.from(".pipeline-progress", { width: "0%", duration: 1.5, ease: "power3.inOut", delay: 0.5 });
     });
-
     return () => ctx.revert();
-  }, [order, currentPhaseIndex]);
+  }, [order]);
 
-  /* ---------------- STATES ---------------- */
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <p className="text-gray-500">Loading order details…</p>
+  if (isLoading) return (
+    <div className="min-h-screen bg-[#f8fafc] flex items-center justify-center">
+      <div className="flex flex-col items-center gap-4">
+        <div className="h-10 w-10 rounded-full border-4 border-gray-200 border-t-[#D11C78] animate-spin"></div>
+        <p className="text-gray-400 font-black text-[10px] tracking-[0.2em] uppercase">Fetching Order Details</p>
       </div>
-    );
-  }
+    </div>
+  );
 
-  if (isError || !order) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-[#F8FAFC]">
-        <div className="p-8 bg-white rounded-2xl shadow-xl text-center">
-          <AlertCircle className="mx-auto mb-3 text-red-500" />
-          <h2 className="text-lg font-semibold">Order Not Found</h2>
+  if (isError || !order) return (
+    <div className="min-h-screen bg-[#f8fafc] flex items-center justify-center p-6">
+        <div className="bg-white p-10 rounded-[2.5rem] shadow-xl border border-gray-100 text-center max-w-md">
+            <AlertCircle className="h-16 w-16 text-rose-500 mx-auto mb-6" />
+            <h2 className="text-2xl font-black mb-2">Order Missing</h2>
+            <p className="text-gray-500 mb-8 font-medium">This order might have been archived or the link is expired.</p>
+            <button onClick={() => navigate("/orders")} className="w-full py-4 bg-slate-900 text-white rounded-2xl font-black">Back to Dashboard</button>
         </div>
-      </div>
-    );
-  }
-
-  /* ---------------- PDF ---------------- */
+    </div>
+  );
 
   const handleGeneratePDF = async () => {
     if (!invoiceRef.current) return;
     setGenerating(true);
-
-    await html2pdf()
-      .from(invoiceRef.current)
-      .set({
-        margin: 10,
-        filename: `Invoice-${order._id}.pdf`,
-        image: { type: "jpeg", quality: 0.98 },
-        html2canvas: { scale: 2 },
-        jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
-      })
-      .save();
-
+    const element = invoiceRef.current;
+    const opt = {
+      margin: 10,
+      filename: `INV-${order.orderId}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 3, useCORS: true },
+      jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    };
+    await html2pdf().from(element).set(opt).save();
     setGenerating(false);
   };
 
   return (
     <div className="min-h-screen bg-[#F8FAFC]">
-      {/* <Sidebar /> */}
-      {/* <MobileSidebar open={sidebarOpen} onOpenChange={setSidebarOpen} /> */}
-
-      <div className="lg:pl-64">
-        {/* <Header searchValue={searchQuery} onSearchChange={setSearchQuery} /> */}
-
-        <main className="p-4 sm:p-6 lg:p-10 max-w-7xl mx-auto space-y-10 pb-28">
-
-          {/* HEADER */}
-          <div className="flex items-center gap-4 od-header">
-            <button
-              onClick={() => navigate("/orders")}
-              className="h-12 w-12 bg-white rounded-xl border flex items-center justify-center"
-            >
-              <ArrowLeft className="h-5 w-5 text-gray-500" />
-            </button>
-
-            <h1 className="text-lg sm:text-2xl font-semibold truncate">
-              Order <span className="text-primary">{order.orderId}</span>
-            </h1>
-          </div>
-
-          {/* DELIVERY PIPELINE */}
-          <div className="bg-white rounded-2xl border shadow p-6 relative">
-            <div className="flex justify-between relative z-10">
-              {statusPhases.map((phase, i) => {
-                const active = i <= currentPhaseIndex;
-                return (
-                  <div key={phase} className="flex flex-col items-center gap-2">
-                    <div
-                      className={cn(
-                        "h-12 w-12 rounded-full flex items-center justify-center",
-                        active
-                          ? "bg-primary text-white shadow-lg"
-                          : "bg-gray-200 text-gray-500"
-                      )}
-                    >
-                      {i === 0 && <Clock />}
-                      {i === 1 && <Truck />}
-                      {i === 2 && <ShieldCheck />}
-                    </div>
-                    <p
-                      className={cn(
-                        "text-xs font-semibold",
-                        active ? "text-primary" : "text-gray-400"
-                      )}
-                    >
-                      {phase}
-                    </p>
-                  </div>
-                );
-              })}
+      <main className="lg:ml-64 min-h-screen flex flex-col">
+        <div className="p-4 sm:p-6 lg:p-10 max-w-[1400px] mx-auto w-full space-y-6 lg:space-y-10">
+          
+          {/* HEADER SECTION */}
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 animate-up">
+            <div className="flex items-center gap-5">
+              <button 
+                onClick={() => navigate("/orders")}
+                className="h-12 w-12 rounded-2xl bg-white border border-gray-200 shadow-sm flex items-center justify-center hover:bg-gray-50 transition-all group"
+              >
+                <ArrowLeft className="h-5 w-5 text-gray-600 group-hover:-translate-x-1 transition-transform" />
+              </button>
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                   <Hash className="h-3 w-3 text-[#D11C78]" />
+                   <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{order.orderId}</span>
+                </div>
+                <h1 className="text-3xl lg:text-4xl font-black tracking-tighter">Order <span className="text-[#D11C78]"> Information</span></h1>
+              </div>
             </div>
 
-            <div className="absolute top-[2.75rem] left-1/2 -translate-x-1/2 w-[85%] h-1 bg-gray-300 rounded-full">
-              <div className="h-full bg-primary pipeline-progress" />
-            </div>
-          </div>
-
-          {/* ITEMS */}
-          <div className="bg-white rounded-2xl border shadow overflow-hidden">
-            <div className="px-6 py-4 border-b flex items-center gap-2">
-              <Package className="h-5 w-5 text-primary" />
-              <h3 className="font-semibold">Manifest Items</h3>
-            </div>
-
-            <div className="divide-y">
-              {order.items.map((item: any, idx: number) => {
-                const product = item.productId;
-
-                return (
-                  <div key={idx} className="p-4 flex gap-4 order-item">
-                    <div className="h-20 w-20 rounded-xl bg-white shadow overflow-hidden shrink-0">
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="h-full w-full object-contain"
-                      />
-                    </div>
-
-                    <div className="flex-1 min-w-0">
-                      <h4 className="text-sm font-semibold truncate">
-                        {product.name}
-                      </h4>
-                      <p className="text-xs text-gray-500 mt-1">
-                        {item.quantity} Boxes × ₹{item.pricePerBox}
-                      </p>
-                      <div className="mt-2 font-semibold text-primary">
-                        ₹{(item.quantity * item.pricePerBox).toLocaleString()}
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-
-          {/* FINAL AUDIT */}
-          <div className="rounded-2xl p-6 text-white shadow-xl
-            bg-gradient-to-br from-[#1DB0A1] to-[#128f86]">
-            <h3 className="flex items-center gap-2 font-semibold mb-4">
-              <TrendingUp className="h-5 w-5" />
-              Final Audit
-            </h3>
-
-            <div className="flex justify-between text-sm mb-2">
-              <span>Total Boxes</span>
-              <span className="font-semibold">{order.totalBoxes}</span>
-            </div>
-
-            <div className="flex justify-between text-sm">
-              <span>Total Amount</span>
-              <span className="font-semibold">
-                ₹{order.totalAmount.toLocaleString()}
-              </span>
-            </div>
-          </div>
-        </main>
-
-        {/* PDF BUTTON */}
-        <div className="fixed bottom-4 left-0 right-0 px-4">
-          <div className="max-w-xl mx-auto rounded-2xl p-1
-            bg-gradient-to-r from-[#1DB0A1] to-[#128f86] shadow-2xl">
             <button
               onClick={handleGeneratePDF}
               disabled={generating}
-              className="w-full py-4 rounded-xl bg-white
-                text-[#128f86] font-semibold flex items-center justify-center gap-2"
+              className="flex items-center justify-center gap-3 px-8 py-4 bg-[#D11C78] text-white rounded-2xl font-black text-sm shadow-xl shadow-[#D11C78]/20 hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50"
             >
-              <FileText className="h-5 w-5" />
-              {generating ? "Generating PDF..." : "Download Invoice (PDF)"}
+              {generating ? <div className="h-4 w-4 border-2 border-white/30 border-t-white animate-spin rounded-full" /> : <Download size={18} />}
+              {generating ? "PREPARING..." : "DOWNLOAD INVOICE"}
             </button>
+          </div>
+
+          <div className="grid grid-cols-1 xl:grid-cols-12 gap-6 lg:gap-10">
+            
+            {/* LEFT COLUMN: STATUS & ITEMS (8 Cols) */}
+            <div className="xl:col-span-8 space-y-6 lg:space-y-10">
+              
+              {/* STATUS TRACKER */}
+              <div className="bg-white rounded-[2.5rem] border border-gray-100 p-6 sm:p-10 shadow-sm animate-up">
+                <h3 className="text-sm font-black uppercase tracking-widest text-gray-400 mb-10">Journey Status</h3>
+                
+                <div className="relative flex justify-between">
+                  {/* Progress Line */}
+                  <div className="absolute top-7 left-0 w-full h-[3px] bg-gray-100 -z-0">
+                    <div 
+                      className="h-full bg-gradient-to-r from-[#D11C78] to-purple-500 pipeline-progress"
+                      style={{ width: `${(currentPhaseIndex / (statusPhases.length - 1)) * 100}%` }}
+                    />
+                  </div>
+
+                  {statusPhases.map((phase, i) => {
+                    const isActive = i <= currentPhaseIndex;
+                    return (
+                      <div key={phase} className="relative z-10 flex flex-col items-center gap-4 bg-white px-2">
+                        <div className={cn(
+                          "h-14 w-14 rounded-2xl flex items-center justify-center transition-all duration-700",
+                          isActive ? "bg-[#D11C78] text-white shadow-lg shadow-[#D11C78]/30" : "bg-gray-50 text-gray-300 border border-gray-100"
+                        )}>
+                          {i === 0 && <Clock size={22} />}
+                          {i === 1 && <Truck size={22} />}
+                          {i === 2 && <CheckCircle2 size={22} />}
+                        </div>
+                        <span className={cn(
+                          "text-[10px] font-bold uppercase tracking-widest",
+                          isActive ? "text-slate-800" : "text-gray-300"
+                        )}>{phase}</span>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* ITEMS LIST */}
+              <div className="bg-white rounded-[2.5rem] border border-gray-100 shadow-sm overflow-hidden animate-up">
+                <div className="px-8 py-6 bg-gray-50/50 border-b border-gray-100 flex items-center justify-between">
+                   <div className="flex items-center gap-3">
+                     <Package className="text-[#D11C78]" size={20} />
+                     <h3 className="font-black text-lg">Shipment Manifest</h3>
+                   </div>
+                   <span className="bg-white px-4 py-1.5 rounded-full border border-gray-200 text-xs font-black">{order.items.length} SKU</span>
+                </div>
+
+                <div className="divide-y divide-gray-50">
+                  {order.items.map((item, idx) => (
+                    <div key={idx} className="p-6 sm:p-8 flex flex-col sm:flex-row sm:items-center gap-6 hover:bg-gray-50/50 transition-colors group">
+                      <div className="h-24 w-24 rounded-[2rem] bg-white border border-gray-100 p-3 shadow-sm shrink-0 group-hover:scale-105 transition-transform">
+                        <img src={item.productId?.image || "/placeholder.png"} className="h-full w-full object-contain" alt="product" />
+                      </div>
+                      <div className="flex-1 space-y-1">
+                        <h4 className="sm:text-[17px] text-sm font-medium text-slate-800 leading-tight">{item.productId?.name}</h4>
+                        <div className="flex items-center gap-4">
+                           <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Qty: {item.quantity} Boxes</span>
+                           <span className="h-1 w-1 rounded-full bg-gray-300" />
+                           <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">₹{item.pricePerBox.toLocaleString()} / Box</span>
+                        </div>
+                      </div>
+                      <div className="sm:text-right pt-4 sm:pt-0 border-t sm:border-0 border-gray-100">
+                         <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest mb-1">Line Total</p>
+                         <p className="text-2xl font-black text-primary">₹{(item.quantity * item.pricePerBox).toLocaleString()}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* RIGHT COLUMN: SUMMARY (4 Cols) */}
+            <div className="xl:col-span-4 space-y-6 lg:space-y-10 animate-up">
+               <div className="bg-white rounded-[2.5rem] shadow-2xl shadow-slate-900/30 overflow-hidden sticky top-10">
+                  <div className="p-8 sm:p-10 space-y-8">
+                     <div className="flex items-center gap-4">
+                        <div className="h-12 w-12 bg-whit rounded-2xl flex items-center justify-center border border-white/10 backdrop-blur-md">
+                           <Receipt className="text-primary" />
+                        </div>
+                        <h3 className="text- font-black text-xl">Financials</h3>
+                     </div>
+
+                     <div className="space-y-4">
+                        <div className="flex justify-between items-center py-3 border-b border-white/5">
+                           <span className="text-slate-800 text-sm font-bold uppercase tracking-wider">Placed on</span>
+                           <span className="text- font-black text-sm">{new Date(order.createdAt).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' })}</span>
+                        </div>
+                        <div className="flex justify-between items-center py-3 border-b border-white/5">
+                           <span className="text-slate-800 text-sm font-bold uppercase tracking-wider">Volume</span>
+                           <span className="text- font-black text-sm px-3 py-1 bg-white/10 rounded-lg">{order.totalBoxes} Boxes</span>
+                        </div>
+                     </div>
+                     <hr />
+
+                     <div className="pt-6">
+                        <p className="text-[#D11C78] font-black text-[12px] uppercase tracking-[0.3em] mb-2">Grand Total</p>
+                        <div className="flex items-baseline gap-2">
+                           <span className="text-2xl font-bold text-white/50">₹</span>
+                           <span className="text-5xl sm:text-6xl font-black text- tracking-tighter italic">
+                              {order.totalAmount.toLocaleString()}
+                           </span>
+                        </div>
+                     </div>
+                  </div>
+                  
+                  {/* Visual Accent */}
+                  <div className="h-2 w-full bg-gradient-to-r from-[#D11C78] via-purple-500 to-blue-500" />
+               </div>
+
+               {/* HELP CARD */}
+               <div className="bg-blue-50/50 border border-blue-100 rounded-[2.5rem] p-8">
+                  <h4 className="font-black text-blue-900 mb-2 uppercase text-xs tracking-widest">Need Support?</h4>
+                  <p className="text-blue-700/70 text-sm font-medium leading-relaxed">If there's a discrepancy in the manifest or billing, contact your regional manager immediately.</p>
+               </div>
+            </div>
+
           </div>
         </div>
 
-        {/* PDF CONTENT */}
+        {/* HIDDEN PRINT COMPONENT */}
         <div className="hidden">
-          <div ref={invoiceRef}>
-            <InvoicePDF order={order} />
-          </div>
+           <div ref={invoiceRef}>
+              <InvoicePDF order={order} />
+           </div>
         </div>
-      </div>
+      </main>
     </div>
   );
 };

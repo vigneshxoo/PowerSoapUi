@@ -46,7 +46,7 @@ export function MobileSidebar({ open, onOpenChange, navItems }: MobileSidebarPro
           </div>
           <div className="">
             <h1 className="text-lg  font-bold text-foreground text-[#D11C78]">Power Soaps</h1>
-            <p className="text-xs text-muted-foreground">{navItems.map((val)=>val.module)}</p>
+            <p className="text-xs text-muted-foreground">{navItems?.map((val)=>val.module)}</p>
           </div>
 
         </Link>

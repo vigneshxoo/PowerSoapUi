@@ -40,7 +40,7 @@ export function Sidebar({ navItems }: any) {
       {/* Navigation */}
       <div className="px-3 py-6">
         <p className="mb-3 px-3 text-[14px] font-semibold uppercase tracking-wider text-muted-foreground">
-          {navItems.map((val:any)=>val.module)}
+          {navItems?.map((val:any)=>val.module)}
         </p>
         <nav className="space-y-1">
           {navItems?.map((item) => {
